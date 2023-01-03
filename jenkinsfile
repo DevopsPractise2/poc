@@ -17,7 +17,7 @@ pipeline {
             steps {
               script {
                try {
-                 sh '''/opt/apache-maven-3.6.3/bin/mvn clean install dockerfile:'''
+                 sh '''/opt/apache-maven-3.6.3/bin/mvn clean install dockerfile:build'''
                } catch(Exception e) {
                  //error "Program failed, please read logs..."
                  echo 'Exception occurred: ' + e.toString()
@@ -29,11 +29,24 @@ pipeline {
         }
         stage('push Image to docker hub') { 
             steps {
-                sh '''docker images
+              script {
+               try {
+                 sh '''docker images
                       docker login -u="naidu135" -p="9742450670"
                       docker tag hello-howtodoinjava/hello-docker:latest naidu135/sreetestreo:latest
                       docker push naidu135/sreetestrepo:latest
                    '''
+               } catch(Exception e) {
+                 //error "Program failed, please read logs..."
+                 echo 'Exception occurred: ' + e.toString()
+                 sh 'Handle the exception!'
+               } 
+              }
+                /*sh '''docker images
+                      docker login -u="naidu135" -p="9742450670"
+                      docker tag hello-howtodoinjava/hello-docker:latest naidu135/sreetestreo:latest
+                      docker push naidu135/sreetestrepo:latest
+                   '''*/
             }
         }
         stage('Deploy') { 
