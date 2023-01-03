@@ -15,12 +15,14 @@ pipeline {
         }
         stage('Build') { 
             steps {
+              script {
                try {
                  sh '''/opt/apache-maven-3.6.3/bin/mvn clean install dockerfile:build'''
                } catch(Exception e) {
                  error "Program failed, please read logs..."
                }
                //sh '''/opt/apache-maven-3.6.3/bin/mvn clean install dockerfile:build'''
+               }
             }
         }
         stage('push Image to docker hub') { 
