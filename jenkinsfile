@@ -10,6 +10,9 @@ pipeline {
             steps {
                sh '''/opt/apache-maven-3.6.3/bin/mvn clean install dockerfile:build'''
             }
+            script {
+               properties([pipelineTriggers([pollSCM('* * * * *')])])
+            }
         }
         stage('push Image to docker hub') { 
             steps {
