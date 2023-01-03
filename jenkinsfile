@@ -9,7 +9,7 @@ pipeline {
         stage('push Image to docker hub') { 
             steps {
                 sh '''docker images
-                      docker login --username naidu135 --login 9742450670
+                      docker login -u="naidu135" -p="9742450670"
                       docker tag hello-howtodoinjava/hello-docker:latest naidu135/sreetestreo:latest
                       docker push naidu135/sreetestrepo:latest
                    '''
