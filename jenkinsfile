@@ -6,9 +6,11 @@ pipeline {
                sh '''/opt/apache-maven-3.6.3/bin/mvn clean install dockerfile:build'''
             }
         }
-        stage('Image check') { 
+        stage('push Image to docker hub') { 
             steps {
-                sh '''docker images '''
+                sh '''docker images
+                      docker push naidu135/sreetestrepo:latest
+                   '''
             }
         }
         stage('Deploy') { 
