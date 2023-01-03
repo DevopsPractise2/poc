@@ -19,7 +19,9 @@ pipeline {
                try {
                  sh '''/opt/apache-maven-3.6.3/bin/mvn clean install dockerfile:'''
                } catch(Exception e) {
-                 error "Program failed, please read logs..."
+                 //error "Program failed, please read logs..."
+                 echo 'Exception occurred: ' + e.toString()
+                 sh 'Handle the exception!'
                }
                //sh '''/opt/apache-maven-3.6.3/bin/mvn clean install dockerfile:build'''
                }
