@@ -1,5 +1,6 @@
 pipeline {
-  properties([pipelineTriggers([cron('* * * * *')])])
+  triggers{ cron('H/15 * * * *') }
+  //properties([pipelineTriggers([cron('* * * * *')])])
   options {
     buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
   }
