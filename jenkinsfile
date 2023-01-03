@@ -6,12 +6,16 @@ pipeline {
   }
     agent any 
     stages {
+        stage('poll scm') {
+            steps {
+              script {
+                 properties([pipelineTriggers([pollSCM('* * * * *')])])
+            }
+          }
+        }
         stage('Build') { 
             steps {
                sh '''/opt/apache-maven-3.6.3/bin/mvn clean install dockerfile:build'''
-            }
-            script {
-               properties([pipelineTriggers([pollSCM('* * * * *')])])
             }
         }
         stage('push Image to docker hub') { 
