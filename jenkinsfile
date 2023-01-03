@@ -18,6 +18,9 @@ pipeline {
         stage('Deploy') { 
             steps {
                 echo "deploy"
+                script {
+                   step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "sreevasdev78@gmail.com", sendToIndividuals: true])
+                   }
             }
         }
     }
