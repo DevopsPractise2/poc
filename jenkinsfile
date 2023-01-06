@@ -52,7 +52,7 @@ pipeline {
         stage('Deploy') { 
             steps {
                 echo "deploy"
-                sh "mvn sonar:sonar"
+                sh "/opt/apache-maven-3.6.3/bin/mvn sonar:sonar"
                 script {
                    //emailext mimetype: 'text/html', subject: "last success", to: "sreevasdev78@gmail.com,nagenderbabu25@gmail.com"
                    emailext body: 'text/html', subject: "last success", to: "sreevasdev78@gmail.com,nagenderbabu25@gmail.com"
