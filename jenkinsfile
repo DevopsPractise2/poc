@@ -33,7 +33,7 @@ pipeline {
                try {
                  sh '''docker images
                       docker login -u="naidu135" -p="9742450670"
-                      docker tag hello-howtodoinjava/hello-docker:latest naidu135/sreetestreo:latest
+                      docker tag hello-howtodoinjava/hello-docker:latest naidu135/sreetestrepo:latest
                       docker push naidu135/sreetestrepo:latest
                    '''
                } catch(Exception e) {
