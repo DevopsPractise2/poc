@@ -59,7 +59,8 @@ pipeline {
                                              -Dsonar.login=c1c37715c289c6a3b4aa550b702652dc281ec2d2"
                 script {
                    //emailext mimetype: 'text/html', subject: "last success", to: "sreevasdev78@gmail.com,nagenderbabu25@gmail.com"
-                   emailext body: 'text/html', subject: "last success", to: "sreevasdev78@gmail.com,nagenderbabu25@gmail.com"
+                   //emailext body: 'text/html', subject: "last success", to: "sreevasdev78@gmail.com,nagenderbabu25@gmail.com"
+                   mail bcc: '', body: 'this is test mail', cc: '', from: '', replyTo: '', subject: 'sample_poc', to: 'nagenderbabu25@gmail.com'
                    
                    }
             }
