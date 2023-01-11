@@ -55,7 +55,7 @@ pipeline {
                 //sh "/opt/apache-maven-3.6.3/bin/mvn -X sonar:sonar"
                 sh "/opt/apache-maven-3.6.3/bin/mvn sonar:sonar \
                                              -Dsonar.projectKey=sonar-project \
-                                             -Dsonar.host.url=http://3.135.205.16:9000 \
+                                             -Dsonar.host.url=http://3.17.75.1:9000 \
                                              -Dsonar.login=c1c37715c289c6a3b4aa550b702652dc281ec2d2"
                 script {
                    //emailext mimetype: 'text/html', subject: "last success", to: "sreevasdev78@gmail.com,nagenderbabu25@gmail.com"
