@@ -53,6 +53,7 @@ pipeline {
             steps {
               script {
                 sh ''' docker pull naidu135/sreetestrepo:latest '''
+                sh ''' docker images '''
               }
             }
         }
