@@ -68,9 +68,17 @@ pipeline {
                 script {
                    //emailext mimetype: 'text/html', subject: "last success", to: "sreevasdev78@gmail.com,nagenderbabu25@gmail.com"
                    //emailext body: 'text/html', subject: "last success", to: "sreevasdev78@gmail.com,nagenderbabu25@gmail.com"
-                   mail bcc: '', body: 'this is test mail', cc: '', from: '', replyTo: '', subject: 'sample_poc', to: 'sreevasdev78@gmail.com,nagenderbabu25@gmail.com'
+                   mail bcc: '', body: 'Scanned the code, Please find the scanning reports', cc: '', from: '', replyTo: '', subject: 'Scanning the code', to: 'sreevasdev78@gmail.com'
                    
                    }
+            }
+        }
+        stage('Approval mail before Deploying code') {
+            steps {
+               echo "######## Deployment started ########"
+               script {
+                  mail bcc: '', body: 'Please Approve or ABort the deployment', cc: '', from: '', replyTo: '', subject: 'Approval mail for deploying the code', to: 'sreevasdev78@gmail.com'
+               }
             }
         }
     }
