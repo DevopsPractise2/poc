@@ -77,7 +77,7 @@ pipeline {
             steps {
                echo "######## Deployment started ########"
                script {
-                  mail bcc: '', body: 'Please Approve or ABort the deployment', cc: '', from: '', replyTo: '', subject: 'Approval mail for deploying the code', to: 'sreevasdev78@gmail.com'
+                  mail bcc: '', body: 'Please Approve or ABort the deployment $BUILD_URL', cc: '', from: '', replyTo: '', subject: 'Approval mail for deploying the code', to: 'sreevasdev78@gmail.com'
                }
             }
         }
