@@ -53,7 +53,7 @@ pipeline {
             steps {
               script {
                 sh ''' docker pull naidu135/sreetestrepo:latest '''
-                mail bcc: '', body: 'Deploying Docker image....', cc: '', from: '', replyTo: '', subject: 'Deploying Docker Image', to: 'sreevasdev78@gmail.com,nagenderbabu25@gmail.com'
+                mail bcc: '', body: 'Deploying Docker image....', cc: '', from: '', replyTo: '', subject: 'Deploying Docker Image', to: 'sreevasdev78@gmail.com'
               }
             }
         }
