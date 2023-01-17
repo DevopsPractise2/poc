@@ -1,26 +1,84 @@
 pipeline {
+  //triggers{ cron('H/15 * * * *') }
+  //properties([pipelineTriggers([cron('* * * * *')])])
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+  }
     agent any 
     stages {
+        stage('poll scm') {
+            steps {
+              script {
+                 properties([pipelineTriggers([pollSCM('* * * * *')])])
+            }
+          }
+        }
         stage('Build') { 
             steps {
-               sh '''/opt/apache-maven-3.6.3/bin/mvn clean install dockerfile:build'''
+              script {
+               try {
+                 sh '''/opt/apache-maven-3.6.3/bin/mvn clean install dockerfile:build'''
+               } catch(Exception e) {
+                 //error "Program failed, please read logs..."
+                 echo 'Exception occurred: ' + e.toString()
+                 sh 'Handle the exception!'
+               }
+               //sh '''/opt/apache-maven-3.6.3/bin/mvn clean install dockerfile:build'''
+               }
             }
         }
         stage('push Image to docker hub') { 
             steps {
-                sh '''docker images
+              script {
+               try {
+                 sh '''docker images
+                      docker login -u="naidu135" -p="9742450670"
+                      docker tag hello-howtodoinjava/hello-docker:latest naidu135/sreetestrepo:latest
+                      docker push naidu135/sreetestrepo:latest
+                   '''
+               } catch(Exception e) {
+                 //error "Program failed, please read logs..."
+                 echo 'Exception occurred: ' + e.toString()
+                 sh 'Handle the exception!'
+               } 
+              }
+                /*sh '''docker images
                       docker login -u="naidu135" -p="9742450670"
                       docker tag hello-howtodoinjava/hello-docker:latest naidu135/sreetestreo:latest
                       docker push naidu135/sreetestrepo:latest
-                   '''
+                   '''*/
             }
         }
-        stage('Deploy') { 
+        stage('pull image from docker hub') {
+            steps {
+              script {
+                sh ''' docker pull naidu135/sreetestrepo:latest '''
+                mail bcc: '', body: 'Deploying Docker image....', cc: '', from: '', replyTo: '', subject: 'Deploying Docker Image', to: 'sreevasdev78@gmail.com'
+              }
+            }
+        }
+        stage('sonar scan') { 
             steps {
                 echo "deploy"
+                //sh "/opt/apache-maven-3.6.3/bin/mvn -X sonar:sonar"
+                sh "/opt/apache-maven-3.6.3/bin/mvn sonar:sonar \
+                                             -Dsonar.projectKey=sonar-project \
+                                             -Dsonar.host.url=http://3.17.75.1:9000 \
+                                             -Dsonar.login=c1c37715c289c6a3b4aa550b702652dc281ec2d2"
                 script {
-                   emailext mimetype: 'text/html', subject: "last success", to: "sreevasdev78@gmail.com"
+                   //emailext mimetype: 'text/html', subject: "last success", to: "sreevasdev78@gmail.com"
+                   //emailext body: 'text/html', subject: "last success", to: "sreevasdev78@gmail.com"
+                   mail bcc: '', body: 'Scanned the code, Please find the scanning reports', cc: '', from: '', replyTo: '', subject: 'Scanning the code', to: 'sreevasdev78@gmail.com'
+                   
                    }
+            }
+        }
+        stage('Approval mail before Deploying code') {
+            steps {
+               echo "######## Deployment started ########"
+               script {
+                  mail bcc: '', body: 'Please Approve or ABort the deployment $BUILD_URL', cc: '', from: '', replyTo: '', subject: 'Approval mail for deploying the code', to: 'sreevasdev78@gmail.com'
+               }
             }
         }
     }
