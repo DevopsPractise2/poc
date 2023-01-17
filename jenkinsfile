@@ -66,8 +66,8 @@ pipeline {
                                              -Dsonar.host.url=http://3.17.75.1:9000 \
                                              -Dsonar.login=c1c37715c289c6a3b4aa550b702652dc281ec2d2"
                 script {
-                   //emailext mimetype: 'text/html', subject: "last success", to: "sreevasdev78@gmail.com,nagenderbabu25@gmail.com"
-                   //emailext body: 'text/html', subject: "last success", to: "sreevasdev78@gmail.com,nagenderbabu25@gmail.com"
+                   //emailext mimetype: 'text/html', subject: "last success", to: "sreevasdev78@gmail.com"
+                   //emailext body: 'text/html', subject: "last success", to: "sreevasdev78@gmail.com"
                    mail bcc: '', body: 'Scanned the code, Please find the scanning reports', cc: '', from: '', replyTo: '', subject: 'Scanning the code', to: 'sreevasdev78@gmail.com'
                    
                    }
