@@ -33,14 +33,10 @@ pipeline {
                try {
                  withCredentials([string(credentialsId: 'dockerid', variable: 'dockerpwd')]) {
                         sh "docker login -u naidu135 -p ${dockerpwd}"
+                        
                   }
                  sh '''docker images
-                      //withCredentials([string(credentialsId: 'dockerid', variable: 'dockerpwd')]) {
-                         // some block
-                     //}
-                      //docker login -u="naidu135" -p="9742450670"
-                      //docker login -u naidu135 -p ${dockerpwd}
-                      
+                      #docker login -u="naidu135" -p="9742450670"
                       docker tag hello-howtodoinjava/hello-docker:latest naidu135/sreetestrepo:latest
                       docker push naidu135/sreetestrepo:latest
                    '''
